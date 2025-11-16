@@ -53,7 +53,7 @@ class _AreaCircleScreenState extends State<AreaCircleScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
+      ),
+    );
+  }
 }
