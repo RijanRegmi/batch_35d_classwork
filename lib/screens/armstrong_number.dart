@@ -1,55 +1,72 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
-class ArmstrongNumber extends StatefulWidget {
-  const ArmstrongNumber({super.key});
+class ArmstrongScreen extends StatefulWidget {
+  const ArmstrongScreen({super.key});
 
   @override
-  State<ArmstrongNumber> createState() => ArmstrongNumberState();
+  State<ArmstrongScreen> createState() => _ArmstrongScreenState();
 }
 
-class ArmstrongNumberState extends State<ArmstrongNumber> {
-  final TextEditingController _number = TextEditingController();
-  String? _result;
+class _ArmstrongScreenState extends State<ArmstrongScreen> {
+  final TextEditingController numberController = TextEditingController();
 
-  void _checkArmstrongNumber(){
-    int number = int.tryParse(_number.text)??0;
-    int sum =0;
-    int temp = number;
-    int digits =number.toString().length;
-    while(temp > 0){
-      int lastDigit = temp % 10;
-      sum += pow(lastDigit, digits).toInt();
-      temp = temp ~/10;
+  String result = "";
 
-  }
-  setState(() {
-    
- 
-    if(sum == number){
-      _result = "Armstrong";
-    }else{
-      _result = "not armstrong";
+  bool isArmstrong(int num) {
+    int sum = 0;
+    int temp = num;
+
+    while (temp > 0) {
+      int digit = temp % 10;
+      sum += digit * digit * digit;
+      temp ~/= 10;
     }
-     });
+
+    return sum == num;
   }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.all(16),child: 
-    Column(children: [
-      Text("Check Armstrong Number",style: TextStyle(
-        fontSize: 15,fontWeight: FontWeight.bold
-      ),),
-      SizedBox(height: 20,),
-      TextField(
-        controller: _number,
-        decoration: InputDecoration(labelText: "Enter a number"),),
-        SizedBox(height: 20,),
-        ElevatedButton(onPressed: _checkArmstrongNumber, child: 
-        Text("Check")),
-        SizedBox(height: 20,),
-        Text('$_result')
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Armstrong Number"),
+        backgroundColor: Colors.blue,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: numberController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(labelText: "Enter a number"),
+            ),
+            const SizedBox(height: 8),
 
-    ],),);
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  int num = int.tryParse(numberController.text) ?? 0;
+
+                  setState(() {
+                    result = isArmstrong(num)
+                        ? "$num is an Armstrong number"
+                        : "$num is NOT an Armstrong number";
+                  });
+                },
+                child: const Text("Check Armstrong"),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            Text(
+              result,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

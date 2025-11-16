@@ -1,65 +1,116 @@
 import 'package:flutter/material.dart';
 
-class SiScreen extends StatefulWidget {
-  const SiScreen({super.key});
+class SimpleInterestScreen extends StatefulWidget {
+  const SimpleInterestScreen({super.key});
 
   @override
-  State<SiScreen> createState() => SiScreenState();
+  State<SimpleInterestScreen> createState() => _SimpleInterestScreenState();
 }
 
-class SiScreenState extends State<SiScreen> {
-  final TextEditingController _principalNumberController =TextEditingController();
-  final TextEditingController _rateController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
-  double? _result;
-   void _calculateSI(){
-    double principalNumber = double.tryParse(_principalNumberController.text)?? 00;
-    double rate  = double.tryParse(_rateController.text)?? 0;
-    double time = double.tryParse(_timeController.text)?? 0;
-    setState(() {
-      _result = (principalNumber* rate*time)/100;
-    });
+class _SimpleInterestScreenState extends State<SimpleInterestScreen> {
+  final TextEditingController principalController = TextEditingController();
+  final TextEditingController rateController = TextEditingController();
+  final TextEditingController timeController = TextEditingController();
 
-   }
+  double si = 0;
+
+  final _formKey = GlobalKey<FormState>();
+
+  void calculateSI(double p, double r, double t) {
+    setState(() {
+      si = (p * r * t) / 100;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.all(16),
-    child: Column(children: [
-      Text("Simple Interest Calculator",
-      style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,)),
-      SizedBox(height: 20,),
-      TextField(
-        controller: _principalNumberController,
-        decoration: InputDecoration(
-          labelText: "Principal"
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Simple Interest"),
+        backgroundColor: Colors.blue,
       ),
-       SizedBox(height: 15,),
-      TextField(
-        controller: _rateController,
-        decoration: InputDecoration(
-          labelText: "Rate"
-        ),
-      ),
-       SizedBox(height: 20,),
-      TextField(
-        controller: _timeController,
-        decoration: InputDecoration(
-          labelText: "Time"
-        ),
-      ),
-      SizedBox(height: 20,),
-      ElevatedButton(onPressed: _calculateSI, child: 
-      Text("Calculate SI")),
-      SizedBox(height: 20,),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: principalController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: "Principal",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter principal";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 8),
 
-      Text(
-        'Result:$_result',
-        style: TextStyle(fontSize: 20),
-      )
-    ],
-    ),
+              TextFormField(
+                controller: rateController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: "Rate",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter rate";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 8),
+
+              TextFormField(
+                controller: timeController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: "Time",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter time";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 8),
+
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() == true) {
+                      calculateSI(
+                        double.parse(principalController.text),
+                        double.parse(rateController.text),
+                        double.parse(timeController.text),
+                      );
+                    }
+                  },
+                  child: const Text("Calculate SI"),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              Text(
+                "Simple Interest: $si",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
-
   }
 }

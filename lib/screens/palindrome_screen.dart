@@ -4,52 +4,69 @@ class PalindromeScreen extends StatefulWidget {
   const PalindromeScreen({super.key});
 
   @override
-  State<PalindromeScreen> createState() => PalindromeScreenState();
+  State<PalindromeScreen> createState() => _PalindromeScreenState();
 }
 
-class PalindromeScreenState extends State<PalindromeScreen> {
-  final TextEditingController _checkNumber = TextEditingController();
-  String? _result;
-  
-  void _checkPalindrome(){
-    int number = int.tryParse(_checkNumber.text)?? 0;
-    int temp = number;
-    int reverse =0;
-    while(temp > 0){
-      int lastDigit = temp % 10;
-      reverse = reverse*10+ lastDigit;
-      temp = temp ~/10;
+class _PalindromeScreenState extends State<PalindromeScreen> {
+  final TextEditingController numberController = TextEditingController();
+
+  String result = "";
+
+  bool isPalindrome(int num) {
+    int original = num;
+    int reversed = 0;
+
+    while (num > 0) {
+      int digit = num % 10;
+      reversed = (reversed * 10) + digit;
+      num ~/= 10;
     }
-    setState(() {
-      if( reverse == number){
-          _result = "Palindrome";
-      }else{
-        _result = "not palindrome";
-      }
-    });
+
+    return original == reversed;
   }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.all(16),child: 
-    Column(children: [
-      Text("Check Palindrome Number",
-      style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-        
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Palindrome Number"),
+        backgroundColor: Colors.blue,
       ),
-      SizedBox(height: 20,),
-      TextField(
-        controller: _checkNumber,
-        decoration: InputDecoration(
-          labelText: "Enter a number"
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: numberController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(labelText: "Enter a number"),
+            ),
+            const SizedBox(height: 8),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  int num = int.tryParse(numberController.text) ?? 0;
+
+                  setState(() {
+                    result = isPalindrome(num)
+                        ? "$num is a Palindrome number"
+                        : "$num is NOT a Palindrome number";
+                  });
+                },
+                child: const Text("Check Palindrome"),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            Text(
+              result,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
-      SizedBox(height: 15,),
-      ElevatedButton(onPressed: _checkPalindrome, child: 
-      Text("Check ")
-      ),
-      SizedBox(height: 20,),
-      Text('$_result')
-
-    ],),);
+    );
   }
 }

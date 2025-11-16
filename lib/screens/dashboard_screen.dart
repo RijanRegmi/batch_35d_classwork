@@ -15,9 +15,9 @@ class DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> _screens = const [
     Center(child: Text("Dashboard Page", style: TextStyle(fontSize: 24))),
     ArithmeticScreen(),
-    SiScreen(),
-    AreaOfCircle(),
-    ArmstrongNumber(),
+    SimpleInterestScreen(),
+    AreaCircleScreen(),
+    ArmstrongScreen(),
     PalindromeScreen(),
   ];
 
