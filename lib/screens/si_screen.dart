@@ -27,7 +27,7 @@ class _SimpleInterestScreenState extends State<SimpleInterestScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Simple Interest"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

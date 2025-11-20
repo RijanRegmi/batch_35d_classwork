@@ -3,6 +3,8 @@ import 'package:batch_35d_classwork/screens/arithmetic_screen.dart';
 import 'package:batch_35d_classwork/screens/armstrong_number.dart';
 import 'package:batch_35d_classwork/screens/palindrome_screen.dart';
 import 'package:batch_35d_classwork/screens/si_screen.dart';
+// import 'package:batch_35d_classwork/screens/Rich_Text';
+import 'package:batch_35d_classwork/screens/Flutter_layout.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -19,6 +21,8 @@ class DashboardScreenState extends State<DashboardScreen> {
     AreaCircleScreen(),
     ArmstrongScreen(),
     PalindromeScreen(),
+    // RichTextScreen(),
+    FlutterLayoutScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -31,6 +35,27 @@ class DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Calculator")),
+
+      // body: RichText(
+      //   text: const TextSpan(
+      //     text: "H",
+      //     style: TextStyle(color: Colors.black, fontSize: 30),
+      //     children: <TextSpan>[
+      //       TextSpan(
+      //         text: 'ello',
+      //         style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+      //       ),
+      //       TextSpan(
+      //         text: ' bold',
+      //         style: TextStyle(
+      //           fontWeight: FontWeight.bold,
+      //           color: Colors.amber,
+      //         ),
+      //       ),
+      //       TextSpan(text: ' world!'),
+      //     ],
+      //   ),
+      // ),
       body: Row(
         children: [
           Column(
@@ -65,6 +90,11 @@ class DashboardScreenState extends State<DashboardScreen> {
                 onPressed: () => _onItemTapped(5),
                 icon: Icon(Icons.sync_alt),
                 label: Text("Palindrome"),
+              ),
+              TextButton.icon(
+                onPressed: () => _onItemTapped(6),
+                icon: Icon(Icons.sync_alt),
+                label: Text("Flutter"),
               ),
             ],
           ),

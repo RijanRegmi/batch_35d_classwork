@@ -30,7 +30,7 @@ class _ArmstrongScreenState extends State<ArmstrongScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Armstrong Number"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

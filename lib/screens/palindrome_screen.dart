@@ -30,7 +30,7 @@ class _PalindromeScreenState extends State<PalindromeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Palindrome Number"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

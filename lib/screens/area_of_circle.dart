@@ -17,7 +17,7 @@ class _AreaCircleScreenState extends State<AreaCircleScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Area of Circle"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -26,7 +26,20 @@ class _AreaCircleScreenState extends State<AreaCircleScreen> {
             TextField(
               controller: radiusController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: "Enter radius"),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                labelText: "Enter radius",
+              ),
             ),
 
             const SizedBox(height: 8),
